@@ -98,7 +98,7 @@ class FadeInDown extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController)? controller;
+  final AnimationController controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
@@ -108,7 +108,7 @@ class FadeInDown extends StatefulWidget {
       required this.child,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
-      this.controller,
+      required this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
@@ -160,9 +160,9 @@ class _FadeInDownState extends State<FadeInDown>
       });
     }
 
-    if (widget.controller is Function) {
-      widget.controller!(controller!);
-    }
+    // if (widget.controller is Function) {
+    //   widget.controller!(controller!);
+    // }
   }
 
   @override
@@ -195,7 +195,7 @@ class FadeInDownBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final Function(AnimationController)? controller;
+  final AnimationController controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
@@ -205,7 +205,7 @@ class FadeInDownBig extends StatelessWidget {
       required this.child,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
-      this.controller,
+      required this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600})
