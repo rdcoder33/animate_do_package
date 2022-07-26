@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
 
               FadeInLeft(child: const Square() ),
               FadeInUp(child: const Square() ),
-              FadeInDown(child: const Square() ),
+              // FadeInDown(child: const Square() ),
               FadeInRight(child: const Square() ),
               
           ],
