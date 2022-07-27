@@ -15,10 +15,12 @@ class BounceInDown extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  double frameValue;
 
   BounceInDown(
       {key,
       required this.child,
+      required this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -85,6 +87,7 @@ class _BounceInDownState extends State<BounceInDown>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          controller?.value = widget.frameValue;
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(opacity: opacity.value, child: widget.child));
@@ -134,6 +137,7 @@ class BounceInUp extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        frameValue: 1,
       );
 }
 
