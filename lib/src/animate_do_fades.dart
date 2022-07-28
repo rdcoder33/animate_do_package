@@ -58,20 +58,31 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: widget.duration, vsync: this);
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
     animation = CurvedAnimation(curve: Curves.easeOut, parent: controller!);
 
-    if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-           if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+    // if (!widget.manualTrigger && widget.animate && !widget.loop) {
+    //   Future.delayed(widget.delay, () {
+    //     if (!disposed) {
+    //       if (widget.loop) {
+    //         controller?.repeat();
+    //       } else {
+    //         controller?.forward();
+    //       }
+    //     }
+    //   });
+    // }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: 1));
+          controller?.forward();
         }
-      });
-    }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -80,9 +91,9 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+    // if (widget.animate && widget.delay.inMilliseconds == 0) {
+    //   controller?.forward();
+    // }
 
     return AnimatedBuilder(
         animation: animation,
@@ -170,10 +181,10 @@ class _FadeInDownState extends State<FadeInDown>
     if (!widget.manualTrigger && widget.animate && widget.frameValue == null) {
       Future.delayed(widget.delay, () {
         if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.repeat();
+        } else {
+          controller?.forward();
+        }
       });
     }
 

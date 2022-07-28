@@ -17,10 +17,10 @@ class MyApp extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
 
-              // FadeInLeft(child: const Square() ),
-              // FadeInUp(child: const Square() ),
-              // FadeInDown(child: const Square() ),
-              // FadeInRight(child: const Square() ),
+              FadeInLeft(child: const Square() ),
+              FadeInUp(child: const Square() ),
+              FadeInDown(child: const Square() ),
+              FadeInRight(child: const Square() ),
               
           ],
           ),
