@@ -15,6 +15,7 @@ class FadeIn extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
 
   FadeIn(
       {key,
@@ -23,6 +24,7 @@ class FadeIn extends StatefulWidget {
       this.delay = const Duration(milliseconds: 0),
       this.controller,
       this.manualTrigger = false,
+      this.frameValue,
       this.animate = true})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -79,6 +81,9 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: animation,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Opacity(
             opacity: animation.value,
             child: widget.child,
@@ -102,10 +107,12 @@ class FadeInDown extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInDown(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       required this.controller,
@@ -174,6 +181,9 @@ class _FadeInDownState extends State<FadeInDown>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(
@@ -243,6 +253,7 @@ class FadeInUp extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInUp(
       {key,
@@ -252,6 +263,7 @@ class FadeInUp extends StatefulWidget {
       this.controller,
       this.manualTrigger = false,
       this.animate = true,
+      this.frameValue,
       this.from = 100})
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
@@ -313,6 +325,9 @@ class _FadeInUpState extends State<FadeInUp>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(
@@ -383,10 +398,12 @@ class FadeInLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInLeft(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -453,6 +470,9 @@ class _FadeInLeftState extends State<FadeInLeft>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -523,10 +543,12 @@ class FadeInRight extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInRight(
       {key,
       required this.child,
+      required this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -593,6 +615,9 @@ class _FadeInRightState extends State<FadeInRight>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -618,10 +643,12 @@ class FadeInRightBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInRightBig(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -645,5 +672,6 @@ class FadeInRightBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        frameValue: frameValue,
       );
 }

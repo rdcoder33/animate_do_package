@@ -14,10 +14,12 @@ class ElasticIn extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
 
   ElasticIn(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -83,6 +85,10 @@ class _ElasticInState extends State<ElasticIn>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
+
           return Transform.scale(
             scale: bouncing.value,
             child: Opacity(
@@ -110,10 +116,12 @@ class ElasticInDown extends StatefulWidget {
   final bool animate;
   final double from;
   final double to;
+  final double? frameValue;
 
   ElasticInDown(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -189,6 +197,9 @@ class _ElasticInDownState extends State<ElasticInDown>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(
                   0,
@@ -265,6 +276,7 @@ class ElasticInLeft extends StatefulWidget {
   final bool animate;
   final double from;
   final double to;
+  final double? frameValue;
 
   ElasticInLeft(
       {key,
@@ -275,7 +287,9 @@ class ElasticInLeft extends StatefulWidget {
       this.manualTrigger = false,
       this.animate = true,
       this.from = 200,
-      this.to = 100})
+      this.to = 100,
+      this.frameValue,
+      })
       : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
@@ -344,6 +358,9 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(
                   (falling.value == (widget.to * -1))

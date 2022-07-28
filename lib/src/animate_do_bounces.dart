@@ -156,10 +156,12 @@ class BounceInLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  double frameValue;
 
   BounceInLeft(
       {key,
       required this.child,
+      required this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -225,6 +227,7 @@ class _BounceInLeftState extends State<BounceInLeft>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          controller?.value = widget.frameValue;
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -250,10 +253,12 @@ class BounceInRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double frameValue;
 
   BounceInRight(
       {key,
       required this.child,
+      required this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -277,5 +282,6 @@ class BounceInRight extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        frameValue: frameValue,
       );
 }
