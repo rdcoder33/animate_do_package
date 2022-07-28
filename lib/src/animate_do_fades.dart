@@ -76,6 +76,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
     controller?.addListener(() async {
       print(controller?.status);
+      print(controller?.isCompleted);
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: 1));
@@ -84,9 +85,9 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       }
     });
 
-    if (widget.controller is Function) {
-      widget.controller!(controller!);
-    }
+    // if (widget.controller is Function) {
+    //   widget.controller!(controller!);
+    // }
   }
 
   @override
