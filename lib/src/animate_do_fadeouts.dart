@@ -250,6 +250,8 @@ class FadeOutDownBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -404,6 +406,8 @@ class FadeOutUpBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -558,6 +562,8 @@ class FadeOutLeftBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -607,6 +613,8 @@ class FadeOutRight extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -656,5 +664,7 @@ class FadeOutRightBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        frameValue: frameValue,
+        loop: loop,
       );
 }

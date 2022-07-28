@@ -16,10 +16,12 @@ class FadeIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double? frameValue;
+  final bool loop;
 
   FadeIn(
       {key,
       required this.child,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -62,7 +64,11 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+           if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -163,7 +169,11 @@ class _FadeInDownState extends State<FadeInDown>
 
     if (!widget.manualTrigger && widget.animate && widget.frameValue == null) {
       Future.delayed(widget.delay, () {
-        controller?.forward();
+        if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
       });
     }
 
@@ -261,10 +271,12 @@ class FadeInUp extends StatefulWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInUp(
       {key,
       required this.child,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -361,11 +373,13 @@ class FadeInUpBig extends StatelessWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInUpBig(
       {key,
       required this.child,
       this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -390,6 +404,7 @@ class FadeInUpBig extends StatelessWidget {
         animate: animate,
         from: from,
         frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -409,10 +424,12 @@ class FadeInLeft extends StatefulWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInLeft(
       {key,
       required this.child,
+      this.loop = false,
       this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -509,10 +526,12 @@ class FadeInLeftBig extends StatelessWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInLeftBig(
       {key,
       required this.child,
+      this.loop = false,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
@@ -538,6 +557,7 @@ class FadeInLeftBig extends StatelessWidget {
         animate: animate,
         from: from,
         frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -557,11 +577,13 @@ class FadeInRight extends StatefulWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInRight(
       {key,
       required this.child,
-      required this.frameValue,
+      this.loop = false,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -657,11 +679,13 @@ class FadeInRightBig extends StatelessWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInRightBig(
       {key,
       required this.child,
       this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -686,5 +710,6 @@ class FadeInRightBig extends StatelessWidget {
         animate: animate,
         from: from,
         frameValue: frameValue,
+        loop: loop,
       );
 }
