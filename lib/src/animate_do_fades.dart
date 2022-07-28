@@ -83,6 +83,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
           await Future.delayed(Duration(seconds: 1));
           print('forwareded');
           controller?.forward();
+          controller?.animateTo(0);
         }
       }
     });
