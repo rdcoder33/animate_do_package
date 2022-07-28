@@ -115,7 +115,7 @@ class FadeInDown extends StatefulWidget {
       this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
-      required this.controller,
+      this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 100})
@@ -217,7 +217,7 @@ class FadeInDownBig extends StatelessWidget {
       this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
-      required this.controller,
+      this.controller,
       this.manualTrigger = false,
       this.animate = true,
       this.from = 600})
