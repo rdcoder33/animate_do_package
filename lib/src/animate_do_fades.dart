@@ -163,15 +163,17 @@ class _FadeInDownState extends State<FadeInDown>
 
     if (!widget.manualTrigger && widget.animate && widget.frameValue == null) {
       Future.delayed(widget.delay, () {
-        if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
-        }
+        controller?.forward();
       });
     }
+    controller?.addListener(() async {
+      if (widget.frameValue == null) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: 1));
+          controller?.forward();
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
