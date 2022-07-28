@@ -103,7 +103,7 @@ class FadeInDown extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final AnimationController controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
@@ -167,9 +167,9 @@ class _FadeInDownState extends State<FadeInDown>
       });
     }
 
-    // if (widget.controller is Function) {
-    //   widget.controller!(controller!);
-    // }
+    if (widget.controller is Function) {
+      widget.controller!(controller!);
+    }
   }
 
   @override
@@ -205,14 +205,16 @@ class FadeInDownBig extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
-  final AnimationController controller;
+  final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInDownBig(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       required this.controller,
@@ -235,7 +237,9 @@ class FadeInDownBig extends StatelessWidget {
       controller: controller,
       manualTrigger: manualTrigger,
       animate: animate,
-      from: from);
+      from: from,
+      frameValue: frameValue,
+      );
 }
 
 /// Class [FadeInUp]:
@@ -353,10 +357,12 @@ class FadeInUpBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInUpBig(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -380,6 +386,7 @@ class FadeInUpBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        frameValue: frameValue,
       );
 }
 
@@ -498,10 +505,12 @@ class FadeInLeftBig extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   FadeInLeftBig(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -525,6 +534,7 @@ class FadeInLeftBig extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from,
+        frameValue: frameValue,
       );
 }
 
