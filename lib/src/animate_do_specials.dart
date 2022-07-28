@@ -14,10 +14,14 @@ class JelloIn extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
+  final bool loop;
 
   JelloIn(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -64,7 +68,11 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -83,6 +91,9 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform(
               alignment: FractionalOffset.center,
               transform: Matrix4.identity()

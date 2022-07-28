@@ -15,10 +15,12 @@ class ElasticIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double? frameValue;
+  final bool loop;
 
   ElasticIn(
       {key,
       required this.child,
+      this.loop = false,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -66,7 +68,11 @@ class _ElasticInState extends State<ElasticIn>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -117,10 +123,12 @@ class ElasticInDown extends StatefulWidget {
   final double from;
   final double to;
   final double? frameValue;
+  final bool loop;
 
   ElasticInDown(
       {key,
       required this.child,
+      this.loop = false,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -178,7 +186,11 @@ class _ElasticInDownState extends State<ElasticInDown>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -229,10 +241,14 @@ class ElasticInUp extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   ElasticInUp(
       {key,
       required this.child,
+      this.loop = false,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -257,6 +273,8 @@ class ElasticInUp extends StatelessWidget {
         animate: animate,
         from: from * -1,
         to: 100,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -277,20 +295,21 @@ class ElasticInLeft extends StatefulWidget {
   final double from;
   final double to;
   final double? frameValue;
+  final bool loop;
 
-  ElasticInLeft(
-      {key,
-      required this.child,
-      this.duration = const Duration(milliseconds: 1000),
-      this.delay = const Duration(milliseconds: 0),
-      this.controller,
-      this.manualTrigger = false,
-      this.animate = true,
-      this.from = 200,
-      this.to = 100,
-      this.frameValue,
-      })
-      : super(key: key) {
+  ElasticInLeft({
+    key,
+    required this.child,
+    this.loop = false,
+    this.duration = const Duration(milliseconds: 1000),
+    this.delay = const Duration(milliseconds: 0),
+    this.controller,
+    this.manualTrigger = false,
+    this.animate = true,
+    this.from = 200,
+    this.to = 100,
+    this.frameValue,
+  }) : super(key: key) {
     if (manualTrigger == true && controller == null) {
       throw FlutterError('If you want to use manualTrigger:true, \n\n'
           'Then you must provide the controller property, that is a callback like:\n\n'
@@ -339,7 +358,11 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -390,10 +413,14 @@ class ElasticInRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   ElasticInRight(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -410,12 +437,15 @@ class ElasticInRight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ElasticInLeft(
-      child: child,
-      duration: duration,
-      delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      from: from * -1,
-      to: -100);
+        child: child,
+        duration: duration,
+        delay: delay,
+        controller: controller,
+        manualTrigger: manualTrigger,
+        animate: animate,
+        from: from * -1,
+        to: -100,
+        frameValue: frameValue,
+        loop: loop,
+      );
 }

@@ -15,10 +15,14 @@ class ZoomIn extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   ZoomIn(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -65,7 +69,11 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -84,6 +92,9 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: fade,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.scale(
             scale: fade.value,
             child: Opacity(
@@ -110,10 +121,14 @@ class ZoomOut extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   ZoomOut(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -161,7 +176,11 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -180,6 +199,9 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.scale(
             scale: zoom.value,
             child: Opacity(

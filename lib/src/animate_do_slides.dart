@@ -15,10 +15,14 @@ class SlideInUp extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   SlideInUp(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -63,7 +67,11 @@ class _SlideInUpState extends State<SlideInUp>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -82,6 +90,9 @@ class _SlideInUpState extends State<SlideInUp>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(0, animation.value), child: widget.child);
         });
@@ -103,10 +114,14 @@ class SlideInDown extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   SlideInDown(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -130,6 +145,8 @@ class SlideInDown extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -148,10 +165,14 @@ class SlideInLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   SlideInLeft(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -196,7 +217,11 @@ class _SlideInLeftState extends State<SlideInLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -215,6 +240,9 @@ class _SlideInLeftState extends State<SlideInLeft>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(animation.value, 0), child: widget.child);
         });
@@ -236,10 +264,14 @@ class SlideInRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   SlideInRight(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -263,5 +295,7 @@ class SlideInRight extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
+        frameValue: frameValue,
+        loop: loop,
       );
 }

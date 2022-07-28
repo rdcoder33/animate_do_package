@@ -15,12 +15,14 @@ class BounceInDown extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
-  double frameValue;
+  final double? frameValue;
+  final bool loop;
 
   BounceInDown(
       {key,
       required this.child,
-      required this.frameValue,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -68,7 +70,11 @@ class _BounceInDownState extends State<BounceInDown>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -87,7 +93,10 @@ class _BounceInDownState extends State<BounceInDown>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
-          controller?.value = widget.frameValue;
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
+
           return Transform.translate(
               offset: Offset(0, animation.value),
               child: Opacity(opacity: opacity.value, child: widget.child));
@@ -110,10 +119,14 @@ class BounceInUp extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
+  final bool loop;
 
   BounceInUp(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -137,7 +150,8 @@ class BounceInUp extends StatelessWidget {
         manualTrigger: manualTrigger,
         animate: animate,
         from: from * -1,
-        frameValue: 1,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
@@ -156,12 +170,14 @@ class BounceInLeft extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
-  double frameValue;
+  final double? frameValue;
+  final bool loop;
 
   BounceInLeft(
       {key,
       required this.child,
-      required this.frameValue,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -208,7 +224,11 @@ class _BounceInLeftState extends State<BounceInLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -227,7 +247,10 @@ class _BounceInLeftState extends State<BounceInLeft>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
-          controller?.value = widget.frameValue;
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
+
           return Transform.translate(
               offset: Offset(animation.value, 0),
               child: Opacity(
@@ -253,12 +276,14 @@ class BounceInRight extends StatelessWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
-  final double frameValue;
+  final double? frameValue;
+  final bool loop;
 
   BounceInRight(
       {key,
       required this.child,
-      required this.frameValue,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -283,5 +308,6 @@ class BounceInRight extends StatelessWidget {
         animate: animate,
         from: from * -1,
         frameValue: frameValue,
+        loop: loop,
       );
 }

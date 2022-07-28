@@ -18,10 +18,12 @@ class Bounce extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double from;
+  final double? frameValue;
 
   Bounce(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -93,6 +95,9 @@ class _BounceState extends State<Bounce> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.translate(
               offset: Offset(
                   0,
@@ -121,10 +126,12 @@ class Flash extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
 
   Flash(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -195,6 +202,9 @@ class _FlashState extends State<Flash> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Opacity(
               opacity: (controller!.value < 0.25)
                   ? opacityOut1.value
@@ -225,10 +235,12 @@ class Pulse extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
 
   Pulse(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -296,6 +308,9 @@ class _PulseState extends State<Pulse> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.scale(
             scale: (controller!.value < 0.5)
                 ? animationInc.value
@@ -323,10 +338,12 @@ class Swing extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
 
   Swing(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -420,6 +437,9 @@ class _SwingState extends State<Swing> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           double angle = (animationRotation1.value != -0.5)
               ? animationRotation1.value
               : (animationRotation2.value != 0.5)
@@ -459,10 +479,12 @@ class Spin extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double spins;
+  final double? frameValue;
 
   Spin(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -526,6 +548,9 @@ class _SpinState extends State<Spin> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.rotate(
             angle: spin.value * 3.1415926535,
             child: widget.child,
@@ -552,10 +577,12 @@ class SpinPerfect extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double spins;
+  final double? frameValue;
 
   SpinPerfect(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -620,6 +647,9 @@ class _SpinPerfectState extends State<SpinPerfect>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.rotate(
             angle: spin.value * 3.141516,
             child: widget.child,
@@ -645,10 +675,12 @@ class Dance extends StatefulWidget {
   final Function(AnimationController)? controller;
   final bool manualTrigger;
   final bool animate;
+  final double? frameValue;
 
   Dance(
       {key,
       required this.child,
+      this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -722,11 +754,15 @@ class _DanceState extends State<Dance> with SingleTickerProviderStateMixin {
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+
           final animation = (step1.value != -0.2)
               ? step1.value
               : (step2.value != 0.2)
                   ? step2.value
                   : step3.value;
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
 
           return Transform(
               alignment: FractionalOffset.center,
@@ -754,10 +790,14 @@ class Roulette extends StatefulWidget {
   final bool manualTrigger;
   final bool animate;
   final double spins;
+  final double? frameValue;
+  final bool loop;
 
   Roulette(
       {key,
       required this.child,
+      this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 3500),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,
@@ -822,6 +862,9 @@ class _RouletteState extends State<Roulette>
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
+          if (widget.frameValue != null) {
+            controller?.value = widget.frameValue!;
+          }
           return Transform.rotate(
             angle: spin.value * 3.141516,
             child: widget.child,

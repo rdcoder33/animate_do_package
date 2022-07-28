@@ -153,8 +153,7 @@ class _FadeInDownState extends State<FadeInDown>
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: widget.duration, vsync: this)
-      ..forward();
+    controller = AnimationController(duration: widget.duration, vsync: this);
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
@@ -167,14 +166,6 @@ class _FadeInDownState extends State<FadeInDown>
         controller?.forward();
       });
     }
-    controller?.addListener(() async {
-      if (widget.loop) {
-        if (controller?.isCompleted ?? false) {
-          await Future.delayed(Duration(seconds: 1));
-          controller?.forward();
-        }
-      }
-    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
