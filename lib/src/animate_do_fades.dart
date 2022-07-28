@@ -108,11 +108,13 @@ class FadeInDown extends StatefulWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInDown(
       {key,
       required this.child,
       this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -159,10 +161,14 @@ class _FadeInDownState extends State<FadeInDown>
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate) {
+    if (!widget.manualTrigger && widget.animate && widget.frameValue == null) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          controller?.forward();
+          if (widget.loop) {
+            controller?.repeat();
+          } else {
+            controller?.forward();
+          }
         }
       });
     }
@@ -174,8 +180,14 @@ class _FadeInDownState extends State<FadeInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
+    if (widget.animate &&
+        widget.delay.inMilliseconds == 0 &&
+        widget.frameValue == null) {
+      if (widget.loop) {
+        controller?.repeat();
+      } else {
+        controller?.forward();
+      }
     }
 
     return AnimatedBuilder(
@@ -210,11 +222,13 @@ class FadeInDownBig extends StatelessWidget {
   final bool animate;
   final double from;
   final double? frameValue;
+  final bool loop;
 
   FadeInDownBig(
       {key,
       required this.child,
       this.frameValue,
+      this.loop = false,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -231,14 +245,15 @@ class FadeInDownBig extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => FadeInDown(
-      child: child,
-      duration: duration,
-      delay: delay,
-      controller: controller,
-      manualTrigger: manualTrigger,
-      animate: animate,
-      from: from,
-      frameValue: frameValue,
+        child: child,
+        duration: duration,
+        delay: delay,
+        controller: controller,
+        manualTrigger: manualTrigger,
+        animate: animate,
+        from: from,
+        frameValue: frameValue,
+        loop: loop,
       );
 }
 
