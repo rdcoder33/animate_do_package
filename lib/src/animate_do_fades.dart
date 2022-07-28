@@ -153,7 +153,8 @@ class _FadeInDownState extends State<FadeInDown>
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: widget.duration, vsync: this)..forward();
+    controller = AnimationController(duration: widget.duration, vsync: this)
+      ..forward();
 
     animation = Tween<double>(begin: widget.from * -1, end: 0)
         .animate(CurvedAnimation(parent: controller!, curve: Curves.easeOut));
@@ -182,14 +183,8 @@ class _FadeInDownState extends State<FadeInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate &&
-        widget.delay.inMilliseconds == 0 &&
-        widget.frameValue == null) {
-      if (widget.loop) {
-        controller?.repeat();
-      } else {
-        controller?.forward();
-      }
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
+      controller?.forward();
     }
 
     return AnimatedBuilder(
