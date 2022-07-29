@@ -203,6 +203,7 @@ class _FadeInDownState extends State<FadeInDown>
     return AnimatedBuilder(
       animation: controller!,
       builder: (BuildContext context, Widget? child) {
+        debugPrint(widget.frameValue.toString());
         if (widget.frameValue != null) {
           controller?.value = widget.frameValue!;
         }
@@ -515,7 +516,9 @@ class _FadeInLeftState extends State<FadeInLeft>
         if (widget.loop) {
           if (controller?.isCompleted ?? false) {
             await Future.delayed(Duration(seconds: widget.loopDelay));
-            controller?.forward(from: 0);
+            if (!disposed) {
+              controller?.forward();
+            }
           }
         }
       });
@@ -679,7 +682,9 @@ class _FadeInRightState extends State<FadeInRight>
         if (widget.loop) {
           if (controller?.isCompleted ?? false) {
             await Future.delayed(Duration(seconds: widget.loopDelay));
-            controller?.forward(from: 0);
+            if (!disposed) {
+              controller?.forward();
+            }
           }
         }
       });
