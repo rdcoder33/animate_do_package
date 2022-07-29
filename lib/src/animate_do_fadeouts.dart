@@ -16,12 +16,14 @@ class FadeOut extends StatefulWidget {
   final bool animate;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOut(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -63,14 +65,21 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -114,12 +123,14 @@ class FadeOutDown extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutDown(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -168,14 +179,21 @@ class _FadeOutDownState extends State<FadeOutDown>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -221,12 +239,14 @@ class FadeOutDownBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutDownBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -272,12 +292,14 @@ class FadeOutUp extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutUp(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -324,14 +346,21 @@ class _FadeOutUpState extends State<FadeOutUp>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -377,12 +406,14 @@ class FadeOutUpBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutUpBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -428,12 +459,14 @@ class FadeOutLeft extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutLeft(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -480,14 +513,21 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -533,12 +573,14 @@ class FadeOutLeftBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutLeftBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -584,6 +626,7 @@ class FadeOutRight extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutRight(
       {key,
@@ -593,6 +636,7 @@ class FadeOutRight extends StatelessWidget {
       this.controller,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.manualTrigger = false,
       this.animate = false,
       this.from = 100})
@@ -635,12 +679,14 @@ class FadeOutRightBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeOutRightBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,

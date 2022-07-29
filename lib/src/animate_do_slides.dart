@@ -17,12 +17,14 @@ class SlideInUp extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   SlideInUp(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -67,14 +69,21 @@ class _SlideInUpState extends State<SlideInUp>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -116,12 +125,14 @@ class SlideInDown extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   SlideInDown(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -167,12 +178,14 @@ class SlideInLeft extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   SlideInLeft(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -217,14 +230,21 @@ class _SlideInLeftState extends State<SlideInLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -266,12 +286,14 @@ class SlideInRight extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   SlideInRight(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 600),
       this.delay = const Duration(milliseconds: 0),
       this.controller,

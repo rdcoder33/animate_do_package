@@ -792,12 +792,14 @@ class Roulette extends StatefulWidget {
   final double spins;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   Roulette(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 3500),
       this.delay = const Duration(milliseconds: 0),
       this.infinite = false,

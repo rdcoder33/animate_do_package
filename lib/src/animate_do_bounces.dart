@@ -17,12 +17,14 @@ class BounceInDown extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   BounceInDown(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -70,14 +72,21 @@ class _BounceInDownState extends State<BounceInDown>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -121,12 +130,14 @@ class BounceInUp extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   BounceInUp(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -172,12 +183,14 @@ class BounceInLeft extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   BounceInLeft(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -224,14 +237,21 @@ class _BounceInLeftState extends State<BounceInLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -278,12 +298,14 @@ class BounceInRight extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   BounceInRight(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,

@@ -17,12 +17,14 @@ class ZoomIn extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ZoomIn(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -69,14 +71,21 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -123,12 +132,14 @@ class ZoomOut extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ZoomOut(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 500),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -176,14 +187,21 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);

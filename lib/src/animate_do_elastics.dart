@@ -16,11 +16,13 @@ class ElasticIn extends StatefulWidget {
   final bool animate;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ElasticIn(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -68,14 +70,21 @@ class _ElasticInState extends State<ElasticIn>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -124,11 +133,13 @@ class ElasticInDown extends StatefulWidget {
   final double to;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ElasticInDown(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -186,14 +197,21 @@ class _ElasticInDownState extends State<ElasticInDown>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -243,11 +261,13 @@ class ElasticInUp extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ElasticInUp(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
@@ -296,11 +316,13 @@ class ElasticInLeft extends StatefulWidget {
   final double to;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ElasticInLeft({
     key,
     required this.child,
     this.loop = false,
+      this.loopDelay = 2,
     this.duration = const Duration(milliseconds: 1000),
     this.delay = const Duration(milliseconds: 0),
     this.controller,
@@ -358,14 +380,21 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
         if (!disposed) {
-          if (widget.loop) {
-            controller?.repeat();
-          } else {
-            controller?.forward();
-          }
+          controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -415,12 +444,14 @@ class ElasticInRight extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   ElasticInRight(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1000),
       this.delay = const Duration(milliseconds: 0),
       this.controller,

@@ -17,11 +17,13 @@ class FadeIn extends StatefulWidget {
   final bool animate;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeIn(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -74,7 +76,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       print(controller?.isCompleted);
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(Duration(seconds: widget.loopDelay));
           controller?.forward(from: 0);
         }
       }
@@ -122,12 +124,14 @@ class FadeInDown extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInDown(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -174,15 +178,24 @@ class _FadeInDownState extends State<FadeInDown>
     opacity = Tween<double>(begin: 0, end: 1).animate(
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
-    if (!widget.manualTrigger && widget.animate && widget.frameValue == null) {
+    if (!widget.manualTrigger && widget.animate) {
       Future.delayed(widget.delay, () {
-        if (widget.loop) {
-          controller?.repeat();
-        } else {
+        if (!disposed) {
           controller?.forward();
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -228,12 +241,14 @@ class FadeInDownBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInDownBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -279,11 +294,13 @@ class FadeInUp extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInUp(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -337,9 +354,16 @@ class _FadeInUpState extends State<FadeInUp>
       });
     }
 
-    if (widget.controller is Function) {
-      widget.controller!(controller!);
-    }
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (widget.loop) {
+        if (controller?.isCompleted ?? false) {
+          await Future.delayed(Duration(seconds: widget.loopDelay));
+          controller?.forward(from: 0);
+        }
+      }
+    });
   }
 
   @override
@@ -381,12 +405,14 @@ class FadeInUpBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInUpBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
@@ -432,11 +458,13 @@ class FadeInLeft extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInLeft(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -483,9 +511,22 @@ class _FadeInLeftState extends State<FadeInLeft>
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller?.forward();
+      if (!widget.manualTrigger && widget.animate) {
+        Future.delayed(widget.delay, () {
+          if (!disposed) {
+            controller?.forward();
+          }
+        });
+      }
+
+      controller?.addListener(() async {
+        print(controller?.status);
+        print(controller?.isCompleted);
+        if (widget.loop) {
+          if (controller?.isCompleted ?? false) {
+            await Future.delayed(Duration(seconds: widget.loopDelay));
+            controller?.forward(from: 0);
+          }
         }
       });
     }
@@ -534,11 +575,13 @@ class FadeInLeftBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInLeftBig(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.frameValue,
       this.duration = const Duration(milliseconds: 1300),
       this.delay = const Duration(milliseconds: 0),
@@ -585,11 +628,13 @@ class FadeInRight extends StatefulWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInRight(
       {key,
       required this.child,
       this.loop = false,
+      this.loopDelay = 2,
       this.frameValue,
       this.duration = const Duration(milliseconds: 800),
       this.delay = const Duration(milliseconds: 0),
@@ -636,12 +681,48 @@ class _FadeInRightState extends State<FadeInRight>
         CurvedAnimation(parent: controller!, curve: const Interval(0, 0.65)));
 
     if (!widget.manualTrigger && widget.animate) {
-      Future.delayed(widget.delay, () {
-        if (!disposed) {
-          controller?.forward();
+      if (!widget.manualTrigger && widget.animate) {
+        Future.delayed(widget.delay, () {
+          if (!disposed) {
+            controller?.forward();
+          }
+        });
+      }
+
+      controller?.addListener(() async {
+        print(controller?.status);
+        print(controller?.isCompleted);
+        if (widget.loop) {
+          if (controller?.isCompleted ?? false) {
+            await Future.delayed(Duration(seconds: widget.loopDelay));
+            controller?.forward(from: 0);
+          }
         }
       });
     }
+
+    controller?.addListener(() async {
+      print(controller?.status);
+      print(controller?.isCompleted);
+      if (!widget.manualTrigger && widget.animate) {
+        Future.delayed(widget.delay, () {
+          if (!disposed) {
+            controller?.forward();
+          }
+        });
+      }
+
+      controller?.addListener(() async {
+        print(controller?.status);
+        print(controller?.isCompleted);
+        if (widget.loop) {
+          if (controller?.isCompleted ?? false) {
+            await Future.delayed(Duration(seconds: widget.loopDelay));
+            controller?.forward(from: 0);
+          }
+        }
+      });
+    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -687,12 +768,14 @@ class FadeInRightBig extends StatelessWidget {
   final double from;
   final double? frameValue;
   final bool loop;
+  final int loopDelay;
 
   FadeInRightBig(
       {key,
       required this.child,
       this.frameValue,
       this.loop = false,
+      this.loopDelay = 2,
       this.duration = const Duration(milliseconds: 1200),
       this.delay = const Duration(milliseconds: 0),
       this.controller,
