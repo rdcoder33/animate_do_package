@@ -79,10 +79,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       print(controller?.isCompleted);
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
-          print('loop called');
           await Future.delayed(Duration(seconds: 1));
-          print('forwareded');
-          controller?.animateTo(0);
           controller?.forward(from: 0);
         }
       }
