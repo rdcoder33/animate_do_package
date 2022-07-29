@@ -80,7 +80,9 @@ class _JelloInState extends State<JelloIn> with SingleTickerProviderStateMixin {
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });

@@ -79,7 +79,9 @@ class _SlideInUpState extends State<SlideInUp>
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -237,7 +239,9 @@ class _SlideInLeftState extends State<SlideInLeft>
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });

@@ -80,7 +80,9 @@ class _FlipInXState extends State<FlipInX> with SingleTickerProviderStateMixin {
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -192,7 +194,9 @@ class _FlipInYState extends State<FlipInY> with SingleTickerProviderStateMixin {
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });

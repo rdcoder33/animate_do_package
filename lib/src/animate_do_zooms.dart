@@ -81,7 +81,9 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -194,7 +196,9 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });

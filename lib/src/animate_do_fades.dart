@@ -75,7 +75,9 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -184,7 +186,9 @@ class _FadeInDownState extends State<FadeInDown>
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -348,7 +352,9 @@ class _FadeInUpState extends State<FadeInUp>
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -356,22 +362,21 @@ class _FadeInUpState extends State<FadeInUp>
 
   @override
   Widget build(BuildContext context) {
-
     return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          if (widget.frameValue != null) {
-            controller?.value = widget.frameValue!;
-          }
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: child,
-              ));
-        },
-        child: widget.child,
-        );
+      animation: controller!,
+      builder: (BuildContext context, Widget? child) {
+        if (widget.frameValue != null) {
+          controller?.value = widget.frameValue!;
+        }
+        return Transform.translate(
+            offset: Offset(0, animation.value),
+            child: Opacity(
+              opacity: opacity.value,
+              child: child,
+            ));
+      },
+      child: widget.child,
+    );
   }
 }
 
@@ -523,8 +528,6 @@ class _FadeInLeftState extends State<FadeInLeft>
 
   @override
   Widget build(BuildContext context) {
-      
-
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {

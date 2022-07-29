@@ -76,11 +76,14 @@ class _ElasticInState extends State<ElasticIn>
     }
 
     controller?.addListener(() async {
-       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            if (!disposed) {
+              controller?.forward(from: 0);
+            }
+          }
         }
       }
     });
@@ -92,8 +95,6 @@ class _ElasticInState extends State<ElasticIn>
 
   @override
   Widget build(BuildContext context) {
-      
-
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -200,11 +201,14 @@ class _ElasticInDownState extends State<ElasticInDown>
     }
 
     controller?.addListener(() async {
-       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            if (!disposed) {
+              controller?.forward(from: 0);
+            }
+          }
         }
       }
     });
@@ -216,8 +220,6 @@ class _ElasticInDownState extends State<ElasticInDown>
 
   @override
   Widget build(BuildContext context) {
-      
-
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
@@ -316,7 +318,7 @@ class ElasticInLeft extends StatefulWidget {
     key,
     required this.child,
     this.loop = false,
-      this.loopDelay = 2,
+    this.loopDelay = 2,
     this.duration = const Duration(milliseconds: 1000),
     this.delay = const Duration(milliseconds: 0),
     this.controller,
@@ -380,11 +382,12 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     }
 
     controller?.addListener(() async {
-       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
-          controller?.forward(from: 0);
+          if (!disposed) {
+            controller?.forward(from: 0);
+          }
         }
       }
     });
@@ -396,8 +399,6 @@ class _ElasticInLeftState extends State<ElasticInLeft>
 
   @override
   Widget build(BuildContext context) {
-      
-
     return AnimatedBuilder(
         animation: controller!,
         builder: (BuildContext context, Widget? child) {
