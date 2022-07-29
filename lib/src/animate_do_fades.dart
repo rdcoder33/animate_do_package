@@ -58,21 +58,16 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
 
-    controller = AnimationController(duration: widget.duration, vsync: this)
-      ..forward();
+    controller = AnimationController(duration: widget.duration, vsync: this);
     animation = CurvedAnimation(curve: Curves.easeOut, parent: controller!);
 
-    // if (!widget.manualTrigger && widget.animate && !widget.loop) {
-    //   Future.delayed(widget.delay, () {
-    //     if (!disposed) {
-    //       if (widget.loop) {
-    //         controller?.repeat();
-    //       } else {
-    //         controller?.forward();
-    //       }
-    //     }
-    //   });
-    // }
+    if (!widget.manualTrigger && widget.animate) {
+      Future.delayed(widget.delay, () {
+        if (!disposed) {
+          controller?.forward();
+        }
+      });
+    }
 
     controller?.addListener(() async {
       print(controller?.status);
@@ -85,16 +80,16 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
       }
     });
 
-    // if (widget.controller is Function) {
-    //   widget.controller!(controller!);
-    // }
+    if (widget.controller is Function) {
+      widget.controller!(controller!);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    // if (widget.animate && widget.delay.inMilliseconds == 0) {
-    //   controller?.forward();
-    // }
+    if (widget.animate && widget.delay.inMilliseconds == 0) {
+      controller?.forward();
+    }
 
     return AnimatedBuilder(
         animation: animation,
