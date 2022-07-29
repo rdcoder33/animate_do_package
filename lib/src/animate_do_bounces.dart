@@ -94,9 +94,7 @@ class _BounceInDownState extends State<BounceInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,
@@ -258,9 +256,7 @@ class _BounceInLeftState extends State<BounceInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,

@@ -72,7 +72,6 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     }
 
     controller?.addListener(() async {
-       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -88,10 +87,6 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
-
     return AnimatedBuilder(
         animation: animation,
         builder: (BuildContext context, Widget? child) {
@@ -186,7 +181,6 @@ class _FadeInDownState extends State<FadeInDown>
     }
 
     controller?.addListener(() async {
-       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -202,23 +196,21 @@ class _FadeInDownState extends State<FadeInDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
-
     return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          if (widget.frameValue != null) {
-            controller?.value = widget.frameValue!;
-          }
-          return Transform.translate(
-              offset: Offset(0, animation.value),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+      animation: controller!,
+      builder: (BuildContext context, Widget? child) {
+        if (widget.frameValue != null) {
+          controller?.value = widget.frameValue!;
+        }
+        return Transform.translate(
+            offset: Offset(0, animation.value),
+            child: Opacity(
+              opacity: opacity.value,
+              child: child,
+            ));
+      },
+      child: widget.child,
+    );
   }
 }
 
@@ -353,7 +345,6 @@ class _FadeInUpState extends State<FadeInUp>
     }
 
     controller?.addListener(() async {
-       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -365,9 +356,6 @@ class _FadeInUpState extends State<FadeInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
 
     return AnimatedBuilder(
         animation: controller!,
@@ -379,9 +367,11 @@ class _FadeInUpState extends State<FadeInUp>
               offset: Offset(0, animation.value),
               child: Opacity(
                 opacity: opacity.value,
-                child: widget.child,
+                child: child,
               ));
-        });
+        },
+        child: widget.child,
+        );
   }
 }
 
@@ -517,8 +507,6 @@ class _FadeInLeftState extends State<FadeInLeft>
       }
 
       controller?.addListener(() async {
-        print(controller?.status);
-        print(controller?.isCompleted);
         if (widget.loop) {
           if (controller?.isCompleted ?? false) {
             await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -535,9 +523,7 @@ class _FadeInLeftState extends State<FadeInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,
@@ -687,8 +673,6 @@ class _FadeInRightState extends State<FadeInRight>
       }
 
       controller?.addListener(() async {
-        print(controller?.status);
-        print(controller?.isCompleted);
         if (widget.loop) {
           if (controller?.isCompleted ?? false) {
             await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -697,28 +681,6 @@ class _FadeInRightState extends State<FadeInRight>
         }
       });
     }
-
-    controller?.addListener(() async {
-       
-      if (!widget.manualTrigger && widget.animate) {
-        Future.delayed(widget.delay, () {
-          if (!disposed) {
-            controller?.forward();
-          }
-        });
-      }
-
-      controller?.addListener(() async {
-        print(controller?.status);
-        print(controller?.isCompleted);
-        if (widget.loop) {
-          if (controller?.isCompleted ?? false) {
-            await Future.delayed(Duration(seconds: widget.loopDelay));
-            controller?.forward(from: 0);
-          }
-        }
-      });
-    });
 
     if (widget.controller is Function) {
       widget.controller!(controller!);
@@ -727,23 +689,21 @@ class _FadeInRightState extends State<FadeInRight>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
-
     return AnimatedBuilder(
-        animation: controller!,
-        builder: (BuildContext context, Widget? child) {
-          if (widget.frameValue != null) {
-            controller?.value = widget.frameValue!;
-          }
-          return Transform.translate(
-              offset: Offset(animation.value, 0),
-              child: Opacity(
-                opacity: opacity.value,
-                child: widget.child,
-              ));
-        });
+      animation: controller!,
+      builder: (BuildContext context, Widget? child) {
+        if (widget.frameValue != null) {
+          controller?.value = widget.frameValue!;
+        }
+        return Transform.translate(
+            offset: Offset(animation.value, 0),
+            child: Opacity(
+              opacity: opacity.value,
+              child: child,
+            ));
+      },
+      child: widget.child,
+    );
   }
 }
 

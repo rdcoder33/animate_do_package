@@ -93,9 +93,7 @@ class _ZoomInState extends State<ZoomIn> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: fade,
@@ -208,9 +206,7 @@ class _ZoomOutState extends State<ZoomOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,

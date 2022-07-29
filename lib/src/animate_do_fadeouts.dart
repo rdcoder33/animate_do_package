@@ -87,9 +87,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: animation,
@@ -200,9 +198,7 @@ class _FadeOutDownState extends State<FadeOutDown>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,
@@ -366,9 +362,7 @@ class _FadeOutUpState extends State<FadeOutUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,
@@ -532,9 +526,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,

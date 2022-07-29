@@ -91,9 +91,7 @@ class _SlideInUpState extends State<SlideInUp>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,
@@ -251,9 +249,7 @@ class _SlideInLeftState extends State<SlideInLeft>
 
   @override
   Widget build(BuildContext context) {
-    if (widget.animate && widget.delay.inMilliseconds == 0) {
-      controller?.forward();
-    }
+      
 
     return AnimatedBuilder(
         animation: controller!,
