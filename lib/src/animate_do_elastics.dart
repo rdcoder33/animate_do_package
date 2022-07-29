@@ -76,8 +76,7 @@ class _ElasticInState extends State<ElasticIn>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -203,8 +202,7 @@ class _ElasticInDownState extends State<ElasticInDown>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -386,8 +384,7 @@ class _ElasticInLeftState extends State<ElasticInLeft>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));

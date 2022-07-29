@@ -75,8 +75,7 @@ class _SlideInUpState extends State<SlideInUp>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -236,8 +235,7 @@ class _SlideInLeftState extends State<SlideInLeft>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));

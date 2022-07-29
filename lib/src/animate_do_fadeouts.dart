@@ -71,8 +71,7 @@ class _FadeOutState extends State<FadeOut> with SingleTickerProviderStateMixin {
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -185,8 +184,7 @@ class _FadeOutDownState extends State<FadeOutDown>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -352,8 +350,7 @@ class _FadeOutUpState extends State<FadeOutUp>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -519,8 +516,7 @@ class _FadeOutLeftState extends State<FadeOutLeft>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));

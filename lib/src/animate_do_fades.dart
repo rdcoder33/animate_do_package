@@ -72,8 +72,7 @@ class _FadeInState extends State<FadeIn> with SingleTickerProviderStateMixin {
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -187,8 +186,7 @@ class _FadeInDownState extends State<FadeInDown>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -355,8 +353,7 @@ class _FadeInUpState extends State<FadeInUp>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (widget.loop) {
         if (controller?.isCompleted ?? false) {
           await Future.delayed(Duration(seconds: widget.loopDelay));
@@ -702,8 +699,7 @@ class _FadeInRightState extends State<FadeInRight>
     }
 
     controller?.addListener(() async {
-      print(controller?.status);
-      print(controller?.isCompleted);
+       
       if (!widget.manualTrigger && widget.animate) {
         Future.delayed(widget.delay, () {
           if (!disposed) {
