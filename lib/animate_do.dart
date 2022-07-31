@@ -17,3 +17,4 @@ export 'src/animate_do_flips.dart';
 export 'src/animate_do_slides.dart';
 export 'src/animate_do_specials.dart';
 export 'src/animate_do_zooms.dart';
+export 'src/animate_do_pop.dart';

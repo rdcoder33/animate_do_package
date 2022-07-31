@@ -116,7 +116,7 @@ class _PopInDownState extends State<PopInDown>
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class BounceInUp extends StatelessWidget {
+class PopInUp extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -128,7 +128,7 @@ class BounceInUp extends StatelessWidget {
   final bool loop;
   final int loopDelay;
 
-  BounceInUp(
+  PopInUp(
       {key,
       required this.child,
       this.frameValue,
@@ -169,7 +169,7 @@ class BounceInUp extends StatelessWidget {
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class BounceInLeft extends StatefulWidget {
+class PopInLeft extends StatefulWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -181,7 +181,7 @@ class BounceInLeft extends StatefulWidget {
   final bool loop;
   final int loopDelay;
 
-  BounceInLeft(
+  PopInLeft(
       {key,
       required this.child,
       this.frameValue,
@@ -202,11 +202,11 @@ class BounceInLeft extends StatefulWidget {
   }
 
   @override
-  _BounceInLeftState createState() => _BounceInLeftState();
+  _PopInLeftState createState() => _PopInLeftState();
 }
 
 /// Bounce class State, this is where the magic happens
-class _BounceInLeftState extends State<BounceInLeft>
+class _PopInLeftState extends State<PopInLeft>
     with SingleTickerProviderStateMixin {
   AnimationController? controller;
   bool disposed = false;
@@ -280,7 +280,7 @@ class _BounceInLeftState extends State<BounceInLeft>
 /// [delay]: delay before the animation starts
 /// [controller]: optional/mandatory, exposes the animation controller created by Animate_do
 /// the controller can be use to repeat, reverse and anything you want, its just an animation controller
-class BounceInRight extends StatelessWidget {
+class PopInRight extends StatelessWidget {
   final Widget child;
   final Duration duration;
   final Duration delay;
@@ -292,7 +292,7 @@ class BounceInRight extends StatelessWidget {
   final bool loop;
   final int loopDelay;
 
-  BounceInRight(
+  PopInRight(
       {key,
       required this.child,
       this.frameValue,
@@ -313,7 +313,7 @@ class BounceInRight extends StatelessWidget {
   }
 
   @override
-  Widget build(BuildContext context) => BounceInLeft(
+  Widget build(BuildContext context) => PopInLeft(
         child: child,
         duration: duration,
         delay: delay,
